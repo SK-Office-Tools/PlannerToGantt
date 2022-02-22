@@ -3,44 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ej2_blazor_defaultdata
+namespace PlannerToGantt
 {
-    public class ResourceData
+    public partial class ResourceData
     {
-        public class ResourceAlloacteData
+        public static List<ResourceAllocateData> GetResources = new List<ResourceAllocateData>()
         {
-            public int ResourceId { get; set; }
-            public string ResourceName { get; set; }
-            public double Unit { get; set; }
-        }
-        public static List<ResourceAlloacteData> GetResources = new List<ResourceAlloacteData>()
-        {
-            new ResourceAlloacteData() { ResourceId= 1, ResourceName= "Martin Tamer" ,Unit=70},
-    new ResourceAlloacteData() { ResourceId= 2, ResourceName= "Rose Fuller" },
-    new ResourceAlloacteData() { ResourceId= 3, ResourceName= "Margaret Buchanan" },
-   new ResourceAlloacteData() { ResourceId= 4, ResourceName= "Fuller King" },
-    new ResourceAlloacteData() { ResourceId= 5, ResourceName= "Davolio Fuller" },
-    new ResourceAlloacteData() { ResourceId= 6, ResourceName= "Van Jack" },
-    new ResourceAlloacteData() { ResourceId= 7, ResourceName= "Fuller Buchanan" },
-    new ResourceAlloacteData() { ResourceId= 8, ResourceName= "Jack Davolio" },
-    new ResourceAlloacteData() { ResourceId= 9, ResourceName= "Tamer Vinet" },
-    new ResourceAlloacteData() { ResourceId= 10, ResourceName= "Vinet Fuller" },
-    new ResourceAlloacteData() { ResourceId= 11, ResourceName= "Bergs Anton" },
-    new ResourceAlloacteData() { ResourceId= 12, ResourceName= "Construction Supervisor" }
+            new ResourceAllocateData() { ResourceId= 1, ResourceName= "Martin Tamer" ,Unit=70},
+            new ResourceAllocateData() { ResourceId= 2, ResourceName= "Rose Fuller" },
+            new ResourceAllocateData() { ResourceId= 3, ResourceName= "Margaret Buchanan" },
+            new ResourceAllocateData() { ResourceId= 4, ResourceName= "Fuller King" },
+            new ResourceAllocateData() { ResourceId= 5, ResourceName= "Davolio Fuller" },
+            new ResourceAllocateData() { ResourceId= 6, ResourceName= "Van Jack" },
+            new ResourceAllocateData() { ResourceId= 7, ResourceName= "Fuller Buchanan" },
+            new ResourceAllocateData() { ResourceId= 8, ResourceName= "Jack Davolio" },
+            new ResourceAllocateData() { ResourceId= 9, ResourceName= "Tamer Vinet" },
+            new ResourceAllocateData() { ResourceId= 10, ResourceName= "Vinet Fuller" },
+            new ResourceAllocateData() { ResourceId= 11, ResourceName= "Bergs Anton" },
+            new ResourceAllocateData() { ResourceId= 12, ResourceName= "Construction Supervisor" }
                 };
-        public class TaskData
-        {
-            public int TaskId { get; set; }
-            public string TaskName { get; set; }
-            public string TaskType { get; set; }
-            public DateTime StartDate { get; set; }
-            public DateTime EndDate { get; set; }
-            public string Duration { get; set; }
-            public int Progress { get; set; }
-            public int? ParentId { get; set; }
-            public double? Work { get; set; }
-            public List<ResourceAlloacteData> Resources { get; set; }
-        }
         public static List<TaskData> GetTaskCollection()
         {
             List<TaskData> Tasks = new List<TaskData>() {

@@ -26,8 +26,10 @@
     <None Remove="Syncfusion.Blazor.Themes" />
     <None Remove="CsvHelper" />
     <None Remove="CsvHelper.Excel.Core" />
+    <None Remove="Data\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Sample\" />
+    <Folder Include="Data\" />
   </ItemGroup>
 </Project>
