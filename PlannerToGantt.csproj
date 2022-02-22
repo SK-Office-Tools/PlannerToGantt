@@ -12,6 +12,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.2" PrivateAssets="all" />
     <PackageReference Include="Syncfusion.Blazor.Gantt" Version="19.4.0.53" />
     <PackageReference Include="Syncfusion.Blazor.Themes" Version="19.4.0.53" />
+    <PackageReference Include="CsvHelper" Version="27.2.1" />
+    <PackageReference Include="CsvHelper.Excel.Core" Version="27.2.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +24,8 @@
     <None Remove="Syncfusion.Blazor.Gantt" />
     <None Remove="Sample\" />
     <None Remove="Syncfusion.Blazor.Themes" />
+    <None Remove="CsvHelper" />
+    <None Remove="CsvHelper.Excel.Core" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Sample\" />
