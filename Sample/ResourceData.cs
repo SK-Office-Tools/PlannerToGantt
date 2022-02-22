@@ -43,13 +43,13 @@ namespace PlannerToGantt
             Duration="2",
             TaskType ="FixedDuration",
             Work=16,
-            Resources = new List<ResourceAlloacteData>(){ new ResourceAlloacteData() { ResourceId=1,Unit=70} ,new ResourceAlloacteData() { ResourceId=6} }
+            Resources = new List<ResourceAllocateData>(){ new ResourceAllocateData() { ResourceId=1,Unit=70} ,new ResourceAllocateData() { ResourceId=6} }
         },
         new TaskData() {
             TaskId = 3,
             TaskName = "Perform soil test",
             StartDate = new DateTime(2021, 03, 29),
-            Resources = new List<ResourceAlloacteData>(){ new ResourceAlloacteData() { ResourceId=2} ,new ResourceAlloacteData() { ResourceId=3} ,new ResourceAlloacteData() { ResourceId=5} },
+            Resources = new List<ResourceAllocateData>(){ new ResourceAllocateData() { ResourceId=2} ,new ResourceAllocateData() { ResourceId=3} ,new ResourceAllocateData() { ResourceId=5} },
             ParentId = 1,
             Work=96,
             Duration="4",
@@ -62,7 +62,7 @@ namespace PlannerToGantt
             Duration = "1",
             Progress = 30,
             ParentId = 1,
-            Resources = new List<ResourceAlloacteData>(){ new ResourceAlloacteData() { ResourceId=8} ,new ResourceAlloacteData() { ResourceId=9} },
+            Resources = new List<ResourceAllocateData>(){ new ResourceAllocateData() { ResourceId=8} ,new ResourceAllocateData() { ResourceId=9} },
             Work=16,
             TaskType="FixedWork"
         },
@@ -81,7 +81,7 @@ namespace PlannerToGantt
             Duration = "3",
             Progress = 30,
             ParentId = 5,
-            Resources = new List<ResourceAlloacteData>(){ new ResourceAlloacteData() { ResourceId=4} },
+            Resources = new List<ResourceAllocateData>(){ new ResourceAllocateData() { ResourceId=4} },
             Work=30,
             TaskType="FixedWork"
         },
@@ -94,7 +94,7 @@ namespace PlannerToGantt
             ParentId = 5,
             TaskType="FixedWork",
             Work=48,
-            Resources = new List<ResourceAlloacteData>(){ new ResourceAlloacteData() { ResourceId=4},new ResourceAlloacteData() { ResourceId=8} }
+            Resources = new List<ResourceAllocateData>(){ new ResourceAllocateData() { ResourceId=4},new ResourceAllocateData() { ResourceId=8} }
         },
         new TaskData() {
             TaskId = 8,
@@ -104,7 +104,7 @@ namespace PlannerToGantt
             ParentId = 5,
             Work=60,
             TaskType="FixedWork",
-            Resources = new List<ResourceAlloacteData>(){ new ResourceAlloacteData() { ResourceId= 12},new ResourceAlloacteData() { ResourceId= 5} }
+            Resources = new List<ResourceAllocateData>(){ new ResourceAllocateData() { ResourceId= 12},new ResourceAllocateData() { ResourceId= 5} }
         },
         new TaskData() {
             TaskId = 9,
@@ -114,7 +114,7 @@ namespace PlannerToGantt
             Duration="1",
             TaskType="FixedWork",
             Work=24,
-            Resources = new List<ResourceAlloacteData>(){ new ResourceAlloacteData() { ResourceId= 12},new ResourceAlloacteData() { ResourceId= 5} }
+            Resources = new List<ResourceAllocateData>(){ new ResourceAllocateData() { ResourceId= 12},new ResourceAllocateData() { ResourceId= 5} }
         },
     };
             return Tasks;
