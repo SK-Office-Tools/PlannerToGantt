@@ -1,58 +1,45 @@
 ﻿@page "/fetchdata"
-@inject HttpClient Http
 
-<PageTitle>Weather forecast</PageTitle>
+@using Syncfusion.Blazor 
+@using Syncfusion.Blazor.Gantt
+@using ej2_blazor_defaultdata
+@using Syncfusion.Blazor.Buttons
 
-<h1>Weather forecast</h1>
-
-<p>This component demonstrates fetching data from the server.</p>
-
-@if (forecasts == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var forecast in forecasts)
-            {
-                <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-
-@code {
-    private WeatherForecast[]? forecasts;
-
-    protected override async Task OnInitializedAsync()
+<div class="col-lg-12 control-section">
+    <div class="content-wrapper">
+        <div class="row">
+            <SfGantt DataSource="@TaskCollection" Height="450px" Width="100%" TreeColumnIndex="1" ProjectStartDate="@ProjectStart" ProjectEndDate="@ProjectEnd" WorkUnit="WorkUnit.Hour"
+                     Toolbar="@(new List<string>(){ "Add", "Edit", "Update", "Delete", "Cancel", "ExpandAll", "CollapseAll"})">
+                <GanttTaskFields Id="TaskId" Name="TaskName" StartDate="StartDate" EndDate="EndDate" Duration="Duration" Progress="Progress"
+                                 ParentID="ParentId" Work="Work" ResourceInfo="Resources" TaskType="TaskType">
+                </GanttTaskFields>
+                <GanttEditSettings AllowAdding="false" AllowEditing="false" AllowDeleting="false" AllowTaskbarEditing="false"
+                                   ShowDeleteConfirmDialog="false"></GanttEditSettings>
+                <GanttColumns>
+                    <GanttColumn Field="TaskId" HeaderText="ID"></GanttColumn>
+                    <GanttColumn Field="TaskName" HeaderText="Task" ClipMode="Syncfusion.Blazor.Grids.ClipMode.EllipsisWithTooltip"></GanttColumn>
+                    <GanttColumn Field="Resources" HeaderText="Assigned To"></GanttColumn>
+                    @*<GanttColumn Field="Work" HeaderText="Work"></GanttColumn>
+                    <GanttColumn Field="Duration" HeaderText="Duration"></GanttColumn>
+                    <GanttColumn Field="TaskType" HeaderText="Task Type"></GanttColumn>*@
+                    <GanttColumn Field="StartDate" HeaderText="Start Date"></GanttColumn>
+                    <GanttColumn Field="EndDate" HeaderText="End Date"></GanttColumn>
+                </GanttColumns>
+                <GanttResourceFields Resources="ResourceCollection" Id="ResourceId" Name="ResourceName" Unit="Unit" TResources="ResourceData.ResourceAlloacteData"></GanttResourceFields>
+                <GanttLabelSettings RightLabel="Resources" TValue="ResourceData.TaskData"></GanttLabelSettings>
+                <GanttSplitterSettings Position="28%"> </GanttSplitterSettings>
+            </SfGantt>
+        </div>
+    </div>
+</div>
+@code{
+    private DateTime ProjectStart = new DateTime(2021, 3, 28);
+    private DateTime ProjectEnd = new DateTime(2021, 7, 28);
+    private List<ResourceData.TaskData> TaskCollection { get; set; }
+    private List<ResourceData.ResourceAlloacteData> ResourceCollection { get; set; }
+    protected override void OnInitialized()
     {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
-    }
-
-    public class WeatherForecast
-    {
-        public DateTime Date { get; set; }
-
-        public int TemperatureC { get; set; }
-
-        public string? Summary { get; set; }
-
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+        this.TaskCollection = ResourceData.GetTaskCollection();
+        this.ResourceCollection = ResourceData.GetResources;
     }
 }
-
