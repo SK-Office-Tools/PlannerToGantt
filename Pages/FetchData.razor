@@ -2,7 +2,6 @@
 
 @using Syncfusion.Blazor 
 @using Syncfusion.Blazor.Gantt
-@using ej2_blazor_defaultdata
 @using Syncfusion.Blazor.Buttons
 
 <div class="col-lg-12 control-section">
@@ -25,8 +24,8 @@
                     <GanttColumn Field="StartDate" HeaderText="Start Date"></GanttColumn>
                     <GanttColumn Field="EndDate" HeaderText="End Date"></GanttColumn>
                 </GanttColumns>
-                <GanttResourceFields Resources="ResourceCollection" Id="ResourceId" Name="ResourceName" Unit="Unit" TResources="ResourceData.ResourceAlloacteData"></GanttResourceFields>
-                <GanttLabelSettings RightLabel="Resources" TValue="ResourceData.TaskData"></GanttLabelSettings>
+                <GanttResourceFields Resources="ResourceCollection" Id="ResourceId" Name="ResourceName" Unit="Unit" TResources="ResourceAllocateData"></GanttResourceFields>
+                <GanttLabelSettings RightLabel="Resources" TValue="TaskData"></GanttLabelSettings>
                 <GanttSplitterSettings Position="28%"> </GanttSplitterSettings>
             </SfGantt>
         </div>
@@ -35,8 +34,8 @@
 @code{
     private DateTime ProjectStart = new DateTime(2021, 3, 28);
     private DateTime ProjectEnd = new DateTime(2021, 5, 28);
-    private List<ResourceData.TaskData> TaskCollection { get; set; }
-    private List<ResourceData.ResourceAlloacteData> ResourceCollection { get; set; }
+    private List<TaskData> TaskCollection { get; set; }
+    private List<ResourceAllocateData> ResourceCollection { get; set; }
     protected override void OnInitialized()
     {
         this.TaskCollection = ResourceData.GetTaskCollection();
