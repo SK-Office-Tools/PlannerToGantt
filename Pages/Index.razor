@@ -5,6 +5,8 @@
 @using CsvHelper.Configuration;
 @using System.Globalization;
 @using System.Linq;
+@using CsvHelper.Excel;
+@using PlannerToGantt.Data;
 
 @inject IJSRuntime JSRuntime
 
@@ -17,7 +19,7 @@
 <div @ref="dropZoneElement" class="drop-zone">
     <p>Drop your exported planner excel file here</p>
     <div @ref="inputFileContainer">
-        <InputFile OnChange="@OnChange" />
+        <InputFile OnChange="@OnChange" accept=".xlsx, xls" />
     </div>
 </div>
 
@@ -27,6 +29,8 @@
 
     IJSObjectReference _module;
     IJSObjectReference _dropZoneInstance;
+
+    List<TaskData> _tasks = null;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -39,8 +43,29 @@
 
     async Task OnChange(InputFileChangeEventArgs e)
     {
+        var importFile = e.File;//.GetMultipleFiles().Select(x => new BroadbandImportFileEntry { ImportFile = x }).ToList();
+                                //using StreamReader fs = new(importFile.OpenReadStream(15 * 1024 * 1024));
+                                //using Stream stream = importFile.OpenReadStream(15 * 1024 * 1024);
 
-    }
+        await using MemoryStream ms = new();
+        await importFile.OpenReadStream().CopyToAsync(ms);
+
+        var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+        {
+            HasHeaderRecord = true
+        };
+
+        using var parser = new ExcelParser(ms, "Tasks", config);
+        using (var csvReader = new CsvReader(parser))
+        {
+            csvReader.Context.RegisterClassMap<PlannerDataMap>();
+            await csvReader.ReadAsync();
+            csvReader.ReadHeader();
+            //var allTasks = csvReader.GetRecords<TaskData>();
+            var allTasks = await csvReader.GetRecordsAsync<TaskData>().ToListAsync();
+            _tasks = allTasks;
+        }
+}
 
     public async ValueTask DisposeAsync()
     {

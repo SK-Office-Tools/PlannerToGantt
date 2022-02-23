@@ -14,6 +14,7 @@
     <PackageReference Include="Syncfusion.Blazor.Themes" Version="19.4.0.53" />
     <PackageReference Include="CsvHelper" Version="27.2.1" />
     <PackageReference Include="CsvHelper.Excel.Core" Version="27.2.1" />
+    <PackageReference Include="System.Linq.Async.Queryable" Version="6.0.1" />
   </ItemGroup>
 
   <ItemGroup>

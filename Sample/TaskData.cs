@@ -2,7 +2,7 @@
 {
     public class TaskData
     {
-        public int TaskId { get; set; }
+        public string TaskId { get; set; }
         public string TaskName { get; set; }
         public string TaskType { get; set; }
         public DateTime StartDate { get; set; }

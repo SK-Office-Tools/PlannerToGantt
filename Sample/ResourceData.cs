@@ -26,7 +26,7 @@ namespace PlannerToGantt
         {
             List<TaskData> Tasks = new List<TaskData>() {
         new TaskData() {
-            TaskId = 1,
+            TaskId = "1",
             TaskName = "Project initiation",
             StartDate = new DateTime(2021, 03, 28),
             EndDate = new DateTime(2021, 07, 28),
@@ -35,7 +35,7 @@ namespace PlannerToGantt
             Duration="4"
         },
         new TaskData() {
-            TaskId = 2,
+            TaskId = "2",
             TaskName = "Identify site location",
             StartDate = new DateTime(2021, 03, 29),
             Progress = 30,
@@ -46,7 +46,7 @@ namespace PlannerToGantt
             Resources = new List<ResourceAllocateData>(){ new ResourceAllocateData() { ResourceId=1,Unit=70} ,new ResourceAllocateData() { ResourceId=6} }
         },
         new TaskData() {
-            TaskId = 3,
+            TaskId = "3",
             TaskName = "Perform soil test",
             StartDate = new DateTime(2021, 03, 29),
             Resources = new List<ResourceAllocateData>(){ new ResourceAllocateData() { ResourceId=2} ,new ResourceAllocateData() { ResourceId=3} ,new ResourceAllocateData() { ResourceId=5} },
@@ -56,7 +56,7 @@ namespace PlannerToGantt
             TaskType="FixedWork"
         },
         new TaskData() {
-            TaskId = 4,
+            TaskId = "4",
             TaskName = "Soil test approval",
             StartDate = new DateTime(2021, 03, 29),
             Duration = "1",
@@ -67,7 +67,7 @@ namespace PlannerToGantt
             TaskType="FixedWork"
         },
         new TaskData() {
-            TaskId = 5,
+            TaskId = "5",
             TaskName = "Project estimation",
             StartDate = new DateTime(2021, 03, 29),
             EndDate = new DateTime(2021, 04, 2),
@@ -75,7 +75,7 @@ namespace PlannerToGantt
             Duration="4"
         },
         new TaskData() {
-            TaskId = 6,
+            TaskId = "6",
             TaskName = "Develop floor plan for estimation",
             StartDate = new DateTime(2021, 03, 29),
             Duration = "3",
@@ -86,7 +86,7 @@ namespace PlannerToGantt
             TaskType="FixedWork"
         },
         new TaskData() {
-            TaskId = 7,
+            TaskId = "7",
             TaskName = "List materials",
             StartDate = new DateTime(2021, 04, 01),
             Duration = "3",
@@ -97,7 +97,7 @@ namespace PlannerToGantt
             Resources = new List<ResourceAllocateData>(){ new ResourceAllocateData() { ResourceId=4},new ResourceAllocateData() { ResourceId=8} }
         },
         new TaskData() {
-            TaskId = 8,
+            TaskId = "8",
             TaskName = "Estimation approval",
             StartDate = new DateTime(2021, 04, 01),
             Duration = "2",
@@ -107,7 +107,7 @@ namespace PlannerToGantt
             Resources = new List<ResourceAllocateData>(){ new ResourceAllocateData() { ResourceId= 12},new ResourceAllocateData() { ResourceId= 5} }
         },
         new TaskData() {
-            TaskId = 9,
+            TaskId = "9",
             TaskName = "Sign contract",
             StartDate = new DateTime(2021, 03, 31),
             EndDate = new DateTime(2021, 04, 01),
