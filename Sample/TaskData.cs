@@ -11,6 +11,7 @@
         public int Progress { get; set; }
         public int? ParentId { get; set; }
         public double? Work { get; set; }
+        public string AssignedTo { get; set; }
         public List<ResourceAllocateData>? Resources { get; set; }
     }
 }
