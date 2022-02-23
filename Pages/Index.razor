@@ -1,10 +1,58 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+@using System.IO
+@using CsvHelper;
+@using CsvHelper.Configuration;
+@using System.Globalization;
+@using System.Linq;
 
-<h1>Hello, world!</h1>
+@inject IJSRuntime JSRuntime
 
-Welcome to your new app.
+@implements IAsyncDisposable
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<PageTitle>Planner to Gantt</PageTitle>
 
+<h1>Convert your Planner to Gantt chart</h1>
+
+<div @ref="dropZoneElement" class="drop-zone">
+    <p>Drop your exported planner excel file here</p>
+    <div @ref="inputFileContainer">
+        <InputFile OnChange="@OnChange" />
+    </div>
+</div>
+
+@code {
+    ElementReference dropZoneElement;
+    ElementReference inputFileContainer;
+
+    IJSObjectReference _module;
+    IJSObjectReference _dropZoneInstance;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./dropZone.js");
+            _dropZoneInstance = await _module.InvokeAsync<IJSObjectReference>("initializeFileDropZone", dropZoneElement, inputFileContainer);
+        }
+    }
+
+    async Task OnChange(InputFileChangeEventArgs e)
+    {
+
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_dropZoneInstance != null)
+        {
+            await _dropZoneInstance.InvokeVoidAsync("dispose");
+            await _dropZoneInstance.DisposeAsync();
+        }
+
+        if (_module != null)
+        {
+            await _module.DisposeAsync();
+        }
+    }
+}
