@@ -7,6 +7,7 @@
 @using System.Linq;
 @using CsvHelper.Excel;
 @using PlannerToGantt.Data;
+@using Syncfusion.Blazor.Gantt
 
 @inject IJSRuntime JSRuntime
 
@@ -23,6 +24,34 @@
     </div>
 </div>
 
+@if (_tasks != null)
+{
+    <div class="col-lg-12 control-section">
+        <div class="content-wrapper">
+            <div class="row">
+                <SfGantt DataSource="@_tasks" Height="450px" Width="100%" TreeColumnIndex="1" ProjectStartDate="@ProjectStart" ProjectEndDate="@ProjectEnd"
+                         Toolbar="@(new List<string>() { "Add", "Edit", "Update", "Delete", "Cancel", "ExpandAll", "CollapseAll" })" AllowUnscheduledTasks="true">
+                    <GanttTaskFields Id="TaskId" Name="TaskName" StartDate="StartDate" EndDate="EndDate" Duration="Duration" Progress="Progress"
+                                     ParentID="ParentId" ResourceInfo="Resources">
+                    </GanttTaskFields>
+                    <GanttEditSettings AllowAdding="false" AllowEditing="false" AllowDeleting="false" AllowTaskbarEditing="false"
+                                       ShowDeleteConfirmDialog="false"></GanttEditSettings>
+                    <GanttColumns>
+                        <GanttColumn Field="Id" HeaderText="ID"></GanttColumn>
+                        <GanttColumn Field="TaskName" HeaderText="Task" ClipMode="Syncfusion.Blazor.Grids.ClipMode.EllipsisWithTooltip"></GanttColumn>
+                        <GanttColumn Field="Resources" HeaderText="Assigned To"></GanttColumn>
+                        <GanttColumn Field="StartDate" HeaderText="Start Date"></GanttColumn>
+                        <GanttColumn Field="EndDate" HeaderText="End Date"></GanttColumn>
+                    </GanttColumns>
+                    <GanttResourceFields Resources="ResourceCollection" Id="ResourceId" Name="ResourceName" Unit="Unit" TResources="ResourceAllocateData"></GanttResourceFields>
+                    <GanttLabelSettings RightLabel="Resources" TValue="TaskData"></GanttLabelSettings>
+                    <GanttSplitterSettings Position="28%"> </GanttSplitterSettings>
+                </SfGantt>
+            </div>
+        </div>
+    </div>
+}
+
 @code {
     ElementReference dropZoneElement;
     ElementReference inputFileContainer;
@@ -31,6 +60,9 @@
     IJSObjectReference _dropZoneInstance;
 
     List<TaskData> _tasks = null;
+    private DateTime ProjectStart = new DateTime(2021, 12, 1);
+    private DateTime ProjectEnd = new DateTime(2022, 6, 28);
+    private List<ResourceAllocateData> ResourceCollection { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -43,9 +75,7 @@
 
     async Task OnChange(InputFileChangeEventArgs e)
     {
-        var importFile = e.File;//.GetMultipleFiles().Select(x => new BroadbandImportFileEntry { ImportFile = x }).ToList();
-                                //using StreamReader fs = new(importFile.OpenReadStream(15 * 1024 * 1024));
-                                //using Stream stream = importFile.OpenReadStream(15 * 1024 * 1024);
+        var importFile = e.File;
 
         await using MemoryStream ms = new();
         await importFile.OpenReadStream().CopyToAsync(ms);
@@ -61,11 +91,25 @@
             csvReader.Context.RegisterClassMap<PlannerDataMap>();
             await csvReader.ReadAsync();
             csvReader.ReadHeader();
-            //var allTasks = csvReader.GetRecords<TaskData>();
             var allTasks = await csvReader.GetRecordsAsync<TaskData>().ToListAsync();
             _tasks = allTasks;
         }
-}
+        var resources = _tasks.Select(t => t.AssignedTo);
+        var tmp = new List<string>();
+        foreach (var res in resources)
+            tmp.AddRange(res.Split(';'));
+        tmp = tmp.Distinct().ToList();
+        int resId = 0;
+        int taskId = 0;
+        ResourceCollection = tmp.Select(res => new ResourceAllocateData { ResourceId = resId++, ResourceName = res }).ToList();
+        foreach(var task in _tasks)
+        {
+            task.TaskId = taskId++;
+            if (task.StartDate == DateTime.MinValue) task.StartDate = task.CreatedDate;
+            task.Resources = task.AssignedTo.Split(";").Select(x => ResourceCollection.First(y => y.ResourceName == x)).ToList();
+        }
+        StateHasChanged();
+    }
 
     public async ValueTask DisposeAsync()
     {
