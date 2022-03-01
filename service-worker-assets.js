@@ -1,7 +1,7 @@
 ﻿self.assetsManifest = {
   "assets": [
     {
-      "hash": "sha256-kr9ZtMiINfsYinGrfKQztdzB8mMe20ES0r8dmIWILxU=",
+      "hash": "sha256-24DQpL8y\/0LnRph1RCzb\/xmptk323+NOiEEensbsOR4=",
       "url": "css\/app.css"
     },
     {
@@ -65,7 +65,7 @@
       "url": "icon-512.png"
     },
     {
-      "hash": "sha256-8b+6xynjWYA+CERWrTQJEnBLZRGxCoVDSXIaDhblTjk=",
+      "hash": "sha256-7rgQTxlpKDQ8U14KzxYECxFfw1rJAbN0shocezoR04o=",
       "url": "index.html"
     },
     {
@@ -109,7 +109,7 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-QEF4yvwyZctAtTuQpxny8gtGvB56j1Fcrtlu0p9lA9Q=",
+      "hash": "sha256-mf+Cs9JpHmN4Xudwee9sG92K9qfi+pow2ehZIG49c5A=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -209,7 +209,7 @@
       "url": "_framework\/netstandard.dll"
     },
     {
-      "hash": "sha256-DvIuV8y9bfHtiNflBLYiWRwEMdJM2mJdEj5gZmzUhj8=",
+      "hash": "sha256-w+qyBH\/bKasHaUoTNq\/pmO+otg7PUprZnJ3JxfUwGlk=",
       "url": "_framework\/PlannerToGantt.dll"
     },
     {
@@ -509,7 +509,7 @@
       "url": "_framework\/System.Xml.ReaderWriter.dll"
     },
     {
-      "hash": "sha256-Ddzfs1lIE8ds8vqPICOUbQhqSeysFP9q3RiAGjriSC0=",
+      "hash": "sha256-YKLu87xlAhbNi1znonNk1udpKoIvWKsa67Dc37X\/Lvs=",
       "url": "PlannerToGantt.styles.css"
     },
     {
@@ -765,5 +765,5 @@
       "url": "_content\/Syncfusion.Blazor.TreeGrid\/scripts\/sf-treegrid-2e8b64.min.js"
     }
   ],
-  "version": "wLiAIfu\/"
+  "version": "MrKd8h1Z"
 };
