@@ -37,6 +37,11 @@ main {
     }
 
 @media (max-width: 640.98px) {
+    .page {
+        flex-direction: row;
+        height: 100% !important;
+    }
+
     .top-row:not(.auth) {
         display: none;
     }
@@ -48,11 +53,18 @@ main {
     .top-row ::deep a, .top-row ::deep .btn-link {
         margin-left: 0;
     }
+
+    .main > div {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+        height: 100% !important;
+    }
 }
 
 @media (min-width: 641px) {
     .page {
         flex-direction: row;
+        height: 100% !important;
     }
 
     .sidebar {
@@ -77,6 +89,12 @@ main {
     .top-row, article {
         padding-left: 2rem !important;
         padding-right: 1.5rem !important;
+    }
+
+    .main > div {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+        height: 100% !important;
     }
 }
 
