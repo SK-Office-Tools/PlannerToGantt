@@ -15,7 +15,7 @@
 
 <PageTitle>Planner to Gantt</PageTitle>
 
-<h1>Convert your Planner to Gantt chart</h1>
+<h2>Convert Planner to Gantt</h2>
 
 <div @ref="dropZoneElement" class="drop-zone">
     <p>Drop your exported planner excel file here</p>
@@ -24,33 +24,38 @@
     </div>
 </div>
 
-@if (_tasks != null)
-{
-    <div class="col-lg-12 control-section">
-        <div class="content-wrapper">
-            <div class="row">
-                <SfGantt DataSource="@_tasks" Height="450px" Width="100%" TreeColumnIndex="1" ProjectStartDate="@ProjectStart" ProjectEndDate="@ProjectEnd"
-                         Toolbar="@(new List<string>() { "Add", "Edit", "Update", "Delete", "Cancel", "ExpandAll", "CollapseAll" })" AllowUnscheduledTasks="true">
-                    <GanttTaskFields Id="TaskId" Name="TaskName" StartDate="StartDate" EndDate="EndDate" Duration="Duration" Progress="Progress"
-                                     ParentID="ParentId" ResourceInfo="Resources">
-                    </GanttTaskFields>
-                    <GanttEditSettings AllowAdding="false" AllowEditing="false" AllowDeleting="false" AllowTaskbarEditing="false"
-                                       ShowDeleteConfirmDialog="false"></GanttEditSettings>
-                    <GanttColumns>
-                        <GanttColumn Field="Id" HeaderText="ID"></GanttColumn>
-                        <GanttColumn Field="TaskName" HeaderText="Task" ClipMode="Syncfusion.Blazor.Grids.ClipMode.EllipsisWithTooltip"></GanttColumn>
-                        <GanttColumn Field="Resources" HeaderText="Assigned To"></GanttColumn>
-                        <GanttColumn Field="StartDate" HeaderText="Start Date"></GanttColumn>
-                        <GanttColumn Field="EndDate" HeaderText="End Date"></GanttColumn>
-                    </GanttColumns>
-                    <GanttResourceFields Resources="ResourceCollection" Id="ResourceId" Name="ResourceName" Unit="Unit" TResources="ResourceAllocateData"></GanttResourceFields>
-                    <GanttLabelSettings RightLabel="Resources" TValue="TaskData"></GanttLabelSettings>
-                    <GanttSplitterSettings Position="28%"> </GanttSplitterSettings>
-                </SfGantt>
+<div style="width: 95%">
+    @if (_tasks != null)
+    {
+        <div class="col-lg-12 control-section">
+            <div class="content-wrapper">
+                <div class="row">
+                    <SfGantt DataSource="@_tasks" Height="450px" Width="100%"
+                             Toolbar="@(new List<string>{ "ZoomIn","ZoomOut","ZoomToFit"})"
+                             ProjectStartDate="@ProjectStart" ProjectEndDate="@ProjectEnd"
+                             AllowUnscheduledTasks="true" IncludeWeekend="false" HighlightWeekends="true" AllowResizing="true">
+                        <GanttTaskFields Id="TaskId" Name="TaskName" StartDate="StartDate" EndDate="EndDate" Duration="Duration" TaskType="Status"
+                                         ParentID="ParentId" ResourceInfo="Resources">
+                        </GanttTaskFields>
+                        <GanttEditSettings AllowAdding="false" AllowEditing="false" AllowDeleting="false" AllowTaskbarEditing="false"
+                                           ShowDeleteConfirmDialog="false"></GanttEditSettings>
+                        <GanttColumns>
+                            @*<GanttColumn Field="Id" HeaderText="ID"></GanttColumn>*@
+                            <GanttColumn Field="TaskName" HeaderText="Task" ClipMode="Syncfusion.Blazor.Grids.ClipMode.EllipsisWithTooltip"></GanttColumn>
+                            <GanttColumn Field="Resources" HeaderText="Assigned To"></GanttColumn>
+                            <GanttColumn Field="Status" HeaderText="Task Type"></GanttColumn>
+                            <GanttColumn Field="StartDate" HeaderText="Start Date"></GanttColumn>
+                            <GanttColumn Field="EndDate" HeaderText="End Date"></GanttColumn>
+                        </GanttColumns>
+                        <GanttResourceFields Resources="ResourceCollection" Id="ResourceId" Name="ResourceName" Unit="Unit" TResources="ResourceAllocateData"></GanttResourceFields>
+                        <GanttLabelSettings RightLabel="TaskName" TValue="TaskData"></GanttLabelSettings>
+                        <GanttSplitterSettings Position="10%" ColumnIndex=2> </GanttSplitterSettings>
+                    </SfGantt>
+                </div>
             </div>
         </div>
-    </div>
-}
+    }
+</div>
 
 @code {
     ElementReference dropZoneElement;
@@ -60,8 +65,8 @@
     IJSObjectReference _dropZoneInstance;
 
     List<TaskData> _tasks = null;
-    private DateTime ProjectStart = new DateTime(2021, 12, 1);
-    private DateTime ProjectEnd = new DateTime(2022, 6, 28);
+    private DateTime ProjectStart = DateTime.Today.AddMonths(-1);
+    private DateTime ProjectEnd = DateTime.Today.AddMonths(3);
     private List<ResourceAllocateData> ResourceCollection { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -72,6 +77,23 @@
             _dropZoneInstance = await _module.InvokeAsync<IJSObjectReference>("initializeFileDropZone", dropZoneElement, inputFileContainer);
         }
     }
+
+    private int WorkingDaysBetween(DateTime startDate, DateTime endDate)
+    {
+        if (startDate == endDate) return 0;
+        var duration = (endDate - startDate);
+        var days = 0;
+        for (var dt = startDate; dt <= endDate; dt = dt.AddDays(1))
+        {
+            if (dt.DayOfWeek != DayOfWeek.Saturday && dt.DayOfWeek != DayOfWeek.Sunday) days++;
+        }
+        return days;
+    }
+
+    private DateTime? EarliestCreatedTask => _tasks.Where(x => x.CreatedDate != null).OrderBy(t => t.CreatedDate).First().CreatedDate;
+    private DateTime? EarliestTask => _tasks.Where(x => x.StartDate != null).OrderBy(t => t.StartDate).First().StartDate;
+    private DateTime? LatestTask => _tasks.Where(x => x.EndDate != null).OrderByDescending(t => t.EndDate).First().EndDate;
+    private DateTime? LatestCompletedTask => _tasks.Where(x => x.CompletedDate != null).OrderByDescending(t => t.CompletedDate).First().CompletedDate;
 
     async Task OnChange(InputFileChangeEventArgs e)
     {
@@ -94,6 +116,14 @@
             var allTasks = await csvReader.GetRecordsAsync<TaskData>().ToListAsync();
             _tasks = allTasks;
         }
+        _tasks = _tasks.Where(t => t.BucketName != "TBD" && t.BucketName != "Backlog" && t.Status != "Completed").ToList(); // Remove TBD and Backlog Items
+
+        //var earliestCreated = (EarliestCreatedTask ?? ProjectStart).AddDays(-7);
+        ProjectStart = (EarliestTask ?? ProjectStart).AddDays(-7);
+        ProjectEnd = (LatestTask ?? ProjectEnd).AddMonths(1);
+        //if (earliestCreated < ProjectStart) ProjectStart = earliestCreated;
+        //var altProjectCompleted = LatestCompletedTask;
+
         var resources = _tasks.Select(t => t.AssignedTo);
         var tmp = new List<string>();
         foreach (var res in resources)
@@ -105,7 +135,12 @@
         foreach(var task in _tasks)
         {
             task.TaskId = taskId++;
-            if (task.StartDate == DateTime.MinValue) task.StartDate = task.CreatedDate;
+            if (task.StartDate == null) task.StartDate = task.CreatedDate;
+            if (task.CompletedDate != null) task.EndDate = task.CompletedDate;
+            if (task.EndDate == null) task.EndDate = task.StartDate;
+            task.Duration = WorkingDaysBetween(task.StartDate.Value, task.EndDate.Value).ToString();    // (task.EndDate - task.StartDate);
+
+            //task.Duration = duration.Value.TotalDays.ToString();
             task.Resources = task.AssignedTo.Split(";").Select(x => ResourceCollection.First(y => y.ResourceName == x)).ToList();
         }
         StateHasChanged();
