@@ -8,7 +8,7 @@ on:
 env:
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 6.0.x
-  WORKING_DIRECTORY: PlannerToGantt
+  WORKING_DIRECTORY: /
 jobs:
   deploy-to-github-pages:
     # use ubuntu-latest image to run steps on
@@ -17,21 +17,21 @@ jobs:
     # uses GitHub's checkout action to checkout code form the master branch
     - uses: actions/checkout@v2
 
-    # sets up .NET Core SDK 5
+    # sets up .NET Core SDK 6
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 6.0.x
             
     # publishes Blazor project to the release-folder
     - name: Publish .NET Core Project
       run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} -o release --nologo
 
-    # changes the base-tag in index.html from '/' to 'Agenda-Helper' to match GitHub Pages repository subdirectory
-    - name: Change base-tag in index.html from / to Agenda-Helper
-      run: sed -i 's/<base href="\/" \/>/<base href="\/Agenda-Helper\/" \/>/g' release/wwwroot/index.html
+    # changes the base-tag in index.html from '/' to 'PlannerToGantt' to match GitHub Pages repository subdirectory
+    - name: Change base-tag in index.html from / to PlannerToGantt
+      run: sed -i 's/<base href="\/" \/>/<base href="\/PlannerToGantt\/" \/>/g' release/wwwroot/index.html
 
-    # changes the base-tag in index.html from '/' to 'Agenda-Helper' to match GitHub Pages repository subdirectory
+    # changes the base-tag in index.html from '/' to 'PlannerToGantt' to match GitHub Pages repository subdirectory
     - name: Fix service-worker-assets.js hashes
       working-directory: release/wwwroot
       run: |
