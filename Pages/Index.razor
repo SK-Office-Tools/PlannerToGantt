@@ -28,8 +28,8 @@
 {
     <div class="col-lg-12 control-section">
         <div class="content-wrapper">
-            <div class="row">
-                <SfGantt DataSource="@_tasks" Height="450px" Width="100%"
+            <div class="gantt">
+                <SfGantt DataSource="@_tasks" Height="100%" Width="100%"
                             Toolbar="@(new List<string>{ "ZoomIn","ZoomOut","ZoomToFit"})"
                             ProjectStartDate="@ProjectStart" ProjectEndDate="@ProjectEnd"
                             AllowUnscheduledTasks="true" IncludeWeekend="false" HighlightWeekends="true" AllowResizing="true">
@@ -48,7 +48,7 @@
                     </GanttColumns>
                     <GanttResourceFields Resources="ResourceCollection" Id="ResourceId" Name="ResourceName" Unit="Unit" TResources="ResourceAllocateData"></GanttResourceFields>
                     <GanttLabelSettings RightLabel="TaskName" TValue="TaskData"></GanttLabelSettings>
-                    <GanttSplitterSettings Position="10%" ColumnIndex=2> </GanttSplitterSettings>
+                    <GanttSplitterSettings ColumnIndex=2> </GanttSplitterSettings>
                 </SfGantt>
             </div>
         </div>

@@ -9,3 +9,9 @@
 .drop-zone:hover {
     border-style: solid;
 }
+
+.gantt {
+    height: calc(100vh - 13rem);
+    width: calc(100vw - 3.5rem);
+    overflow: auto;
+}
