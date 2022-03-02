@@ -53,19 +53,39 @@
       "url": "dropZone.js"
     },
     {
+      "hash": "sha256-FwTpQzrIpOeY\/EEWwF6HHOpwQ95zHyFyISmyZ0aZo6Y=",
+      "url": "favicon-16x16.png"
+    },
+    {
+      "hash": "sha256-uY3XsW9mqcVoqZQxOerw+8znfkc65C1UNMZLINaH+Uw=",
+      "url": "favicon-32x32.png"
+    },
+    {
       "hash": "sha256-Jtxf9L+5ITKRc1gIRl4VbUpGkRNfOBXjYTdhJD4facM=",
       "url": "favicon.ico"
     },
     {
+      "hash": "sha256-gfhnzyCFSsf75aIeewwXLLvm\/M34N4Ir8xO+0nKXNzM=",
+      "url": "gantt-icon.png"
+    },
+    {
       "hash": "sha256-DbpQaq68ZSb5IoPosBErM1QWBfsbTxpJqhU0REi6wP4=",
+      "url": "icon-192-old.png"
+    },
+    {
+      "hash": "sha256-qPW\/C02X8dTbdPvntVdX65CHDw5Mp4FvBbzDXp2UQRI=",
       "url": "icon-192.png"
     },
     {
       "hash": "sha256-oEo6d+KqX5fjxTiZk\/w9NB3Mi0+ycS5yLwCKwr4IkbA=",
+      "url": "icon-512-old.png"
+    },
+    {
+      "hash": "sha256-PmlUxC9h+ygL5ukofkRFORhiD4L55bF0Y2RoK4Ruff8=",
       "url": "icon-512.png"
     },
     {
-      "hash": "sha256-7rgQTxlpKDQ8U14KzxYECxFfw1rJAbN0shocezoR04o=",
+      "hash": "sha256-y7OCGfv9QXyEd4s8gwUNIMRskiWXBREN2jiEPIr3zY8=",
       "url": "index.html"
     },
     {
@@ -109,7 +129,7 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-mf+Cs9JpHmN4Xudwee9sG92K9qfi+pow2ehZIG49c5A=",
+      "hash": "sha256-5Zs+Yq6vcKCKz4JkjGgU+kF3rXaNIoWcpo6eqGajeBw=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -209,7 +229,7 @@
       "url": "_framework\/netstandard.dll"
     },
     {
-      "hash": "sha256-w+qyBH\/bKasHaUoTNq\/pmO+otg7PUprZnJ3JxfUwGlk=",
+      "hash": "sha256-uesDZ+\/MuRJzEzktUh\/TP6wcslldzrWxOKjBBrt7a6Q=",
       "url": "_framework\/PlannerToGantt.dll"
     },
     {
@@ -509,7 +529,7 @@
       "url": "_framework\/System.Xml.ReaderWriter.dll"
     },
     {
-      "hash": "sha256-YKLu87xlAhbNi1znonNk1udpKoIvWKsa67Dc37X\/Lvs=",
+      "hash": "sha256-ZMQtwjn+EbVCQqoij\/mYCZnzUikxS3WtMF0GkriSQ4A=",
       "url": "PlannerToGantt.styles.css"
     },
     {
@@ -765,5 +785,5 @@
       "url": "_content\/Syncfusion.Blazor.TreeGrid\/scripts\/sf-treegrid-2e8b64.min.js"
     }
   ],
-  "version": "MrKd8h1Z"
+  "version": "pe+Mhotv"
 };

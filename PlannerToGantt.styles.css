@@ -10,6 +10,12 @@
 .drop-zone:hover[b-c59ckb6jjc] {
     border-style: solid;
 }
+
+.gantt[b-c59ckb6jjc] {
+    height: calc(100vh - 13rem);
+    width: calc(100vw - 3.5rem);
+    overflow: auto;
+}
 /* /Shared/MainLayout.razor.rz.scp.css */
 .page[b-bhfgnj4kw8] {
     position: relative;
