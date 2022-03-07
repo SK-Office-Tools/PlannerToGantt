@@ -36,6 +36,28 @@ a, .btn-link {
     color: red;
 }
 
+.alert {
+    padding: 8px;
+    background-color: lightgoldenrodyellow;
+    color: black;
+    font-size: medium;
+    position: fixed;
+    left: 5%;
+    bottom: 0;
+    line-height: 18px;
+    display: block;
+    width: 90%;
+    cursor: pointer;
+    border-width: 1px;
+    border-color: red;
+    z-index: 100;
+}
+
+.alert label {
+    cursor: pointer;
+    padding-top: 8px;
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
