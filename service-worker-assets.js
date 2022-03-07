@@ -1,7 +1,7 @@
 ﻿self.assetsManifest = {
   "assets": [
     {
-      "hash": "sha256-24DQpL8y\/0LnRph1RCzb\/xmptk323+NOiEEensbsOR4=",
+      "hash": "sha256-h78Uww0UjezPsD6G4ePxIeacAo\/pKd8dDhB4wkRovrE=",
       "url": "css\/app.css"
     },
     {
@@ -85,7 +85,7 @@
       "url": "icon-512.png"
     },
     {
-      "hash": "sha256-y7OCGfv9QXyEd4s8gwUNIMRskiWXBREN2jiEPIr3zY8=",
+      "hash": "sha256-320/KgKPhMXOBZxLOovJVpyogzSTj82B/nToIusORj8=",
       "url": "index.html"
     },
     {
@@ -95,6 +95,10 @@
     {
       "hash": "sha256-y2X+Iyzjk5FYaTd8IAQkgE50MymSMTV8n160uQgHHqw=",
       "url": "sample-data\/weather.json"
+    },
+    {
+      "hash": "sha256-DmW0iVyXvk12wbOnkFGU7vsgJBJfuI2TVbO9HrcyleY=",
+      "url": "sw-registrator.js"
     },
     {
       "hash": "sha256-pD9dkEr0gbzoZKvepQmzbYKQYka7z+K9H2I+m5Inpxc=",
@@ -129,7 +133,7 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-wHz6NodHHULjartWVnrAoFZrO\/s5XXxMxZmEQ+0g4fg=",
+      "hash": "sha256-z7f6\/TCT8JDvZwrQs0Duv3HgfD2vQ6Q\/sKEKDisxCEo=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -229,7 +233,7 @@
       "url": "_framework\/netstandard.dll"
     },
     {
-      "hash": "sha256-x7cJYtshbHfLvPuze0su\/vewPrNdFdTJq\/PDSv1rFqw=",
+      "hash": "sha256-N3YIzGVN\/goW\/xj39mbljbYDK2llo\/9gO1ZVBAfs3Og=",
       "url": "_framework\/PlannerToGantt.dll"
     },
     {
@@ -529,7 +533,7 @@
       "url": "_framework\/System.Xml.ReaderWriter.dll"
     },
     {
-      "hash": "sha256-ZMQtwjn+EbVCQqoij\/mYCZnzUikxS3WtMF0GkriSQ4A=",
+      "hash": "sha256-fvCrCW1duZhlVaB\/uOWXcLGSIF0pO2vpED8iGgQ7lKI=",
       "url": "PlannerToGantt.styles.css"
     },
     {
@@ -785,5 +789,5 @@
       "url": "_content\/Syncfusion.Blazor.TreeGrid\/scripts\/sf-treegrid-2e8b64.min.js"
     }
   ],
-  "version": "pJ5ZeHPQ"
+  "version": "qu8zf64m"
 };
