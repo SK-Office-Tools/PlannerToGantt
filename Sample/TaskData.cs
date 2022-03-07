@@ -19,5 +19,7 @@
         public string? BucketName { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? CompletedDate { get; set; }
+        public List<string>? Labels { get; set; }
+        public List<string>? ChecklistItems { get; set; }
     }
 }

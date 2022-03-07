@@ -1,9 +1,28 @@
 ﻿using System;
+using CsvHelper;
 using CsvHelper.Configuration;
+using CsvHelper.TypeConversion;
 using PlannerToGantt;
 
 namespace PlannerToGantt.Data
 {
+	public class ListConverter : DefaultTypeConverter
+	{
+		public override object ConvertFromString(string text, IReaderRow row, MemberMapData memberMapData)
+		{
+			if (string.IsNullOrEmpty(text))
+				return new List<string>();
+			return text.Split(';').ToList();
+		}
+
+		public override string ConvertToString(object value, IWriterRow row, MemberMapData memberMapData)
+		{
+			if (value == null)
+				return String.Empty;
+			return String.Join(';', value);
+		}
+	}
+
 	public class PlannerDataMap : ClassMap<TaskData>
 	{
 		public PlannerDataMap()
@@ -18,6 +37,8 @@ namespace PlannerToGantt.Data
 			Map(m => m.BucketName).Name("Bucket Name");
 			Map(m => m.CreatedDate).Name("Created Date").TypeConverterOption.Format("dd/MM/yyyy");
 			Map(m => m.CompletedDate).Name("Completed Date").TypeConverterOption.Format("dd/MM/yyyy");
+			Map(m => m.Labels).Name("Labels").TypeConverter<ListConverter>();
+			Map(m => m.ChecklistItems).Name("Checklist Items").TypeConverter<ListConverter>();
 		}
 	}
 }
