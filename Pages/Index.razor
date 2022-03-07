@@ -30,9 +30,15 @@
         <div class="content-wrapper">
             <div class="gantt">
                 <SfGantt DataSource="@_tasks" Height="100%" Width="100%"
-                            Toolbar="@(new List<string>{ "ZoomIn","ZoomOut","ZoomToFit"})"
-                            ProjectStartDate="@ProjectStart" ProjectEndDate="@ProjectEnd"
-                            AllowUnscheduledTasks="true" IncludeWeekend="false" HighlightWeekends="true" AllowResizing="true">
+                        Toolbar="@(new List<string>{ "ZoomIn","ZoomOut","ZoomToFit"})"
+                        ProjectStartDate="@ProjectStart"
+                        ProjectEndDate="@ProjectEnd"
+                        AllowFiltering="true"
+                        AllowSorting="true"
+                        AllowUnscheduledTasks="true"
+                        IncludeWeekend="false"
+                        HighlightWeekends="true"
+                        AllowResizing="true">
                     <GanttTaskFields Id="TaskId" Name="TaskName" StartDate="StartDate" EndDate="EndDate" Duration="Duration" TaskType="Status"
                                         ParentID="ParentId" ResourceInfo="Resources">
                     </GanttTaskFields>
@@ -42,9 +48,10 @@
                         @*<GanttColumn Field="Id" HeaderText="ID"></GanttColumn>*@
                         <GanttColumn Field="TaskName" HeaderText="Task" ClipMode="Syncfusion.Blazor.Grids.ClipMode.EllipsisWithTooltip"></GanttColumn>
                         <GanttColumn Field="Resources" HeaderText="Assigned To"></GanttColumn>
-                        <GanttColumn Field="Status" HeaderText="Task Type"></GanttColumn>
-                        <GanttColumn Field="StartDate" HeaderText="Start Date"></GanttColumn>
-                        <GanttColumn Field="EndDate" HeaderText="End Date"></GanttColumn>
+                        <GanttColumn Field="Status" HeaderText="Status"></GanttColumn>
+                        <GanttColumn Field="BucketName" HeaderText="Bucket"></GanttColumn>
+                        @*<GanttColumn Field="StartDate" HeaderText="Start Date"></GanttColumn>
+                        <GanttColumn Field="EndDate" HeaderText="End Date"></GanttColumn>*@
                     </GanttColumns>
                     <GanttResourceFields Resources="ResourceCollection" Id="ResourceId" Name="ResourceName" Unit="Unit" TResources="ResourceAllocateData"></GanttResourceFields>
                     <GanttLabelSettings RightLabel="TaskName" TValue="TaskData"></GanttLabelSettings>
