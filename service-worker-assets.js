@@ -533,7 +533,7 @@
       "url": "_framework\/System.Xml.ReaderWriter.dll"
     },
     {
-      "hash": "sha256-fvCrCW1duZhlVaB\/uOWXcLGSIF0pO2vpED8iGgQ7lKI=",
+      "hash": "sha256-lyicTAAkMAStaJjl5VURiNBaMqYmCFoRcr+1\/ewLqK0=",
       "url": "PlannerToGantt.styles.css"
     },
     {
@@ -789,5 +789,5 @@
       "url": "_content\/Syncfusion.Blazor.TreeGrid\/scripts\/sf-treegrid-2e8b64.min.js"
     }
   ],
-  "version": "8\/C0mtRf"
+  "version": "S6xlGDIy"
 };

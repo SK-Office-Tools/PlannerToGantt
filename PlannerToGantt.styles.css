@@ -188,6 +188,7 @@ main[b-bhfgnj4kw8] {
     bottom: 2rem;
     padding: 1rem 1.5rem;
     animation: fadein-b-1rdvfbh5di 2s ease-out;
+    z-index: 100;
 }
 
 @keyframes fadein-b-1rdvfbh5di {
