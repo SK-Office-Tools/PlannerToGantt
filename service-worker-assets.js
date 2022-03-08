@@ -97,7 +97,7 @@
       "url": "sample-data\/weather.json"
     },
     {
-      "hash": "sha256-9jQJaC1Qd6znKXtseHPfbOLf4uqSDcRk+ySKL4rSorI=",
+      "hash": "sha256-MJuLLFQSFme01fKurS6laCUkrNcslVrYWYnNP7BbXqc=",
       "url": "sw-registrator.js"
     },
     {
@@ -789,5 +789,5 @@
       "url": "_content\/Syncfusion.Blazor.TreeGrid\/scripts\/sf-treegrid-2e8b64.min.js"
     }
   ],
-  "version": "hai5Ur+7"
+  "version": "KAPNAPet"
 };
