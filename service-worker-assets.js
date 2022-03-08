@@ -97,7 +97,7 @@
       "url": "sample-data\/weather.json"
     },
     {
-      "hash": "sha256-DmW0iVyXvk12wbOnkFGU7vsgJBJfuI2TVbO9HrcyleY=",
+      "hash": "sha256-9jQJaC1Qd6znKXtseHPfbOLf4uqSDcRk+ySKL4rSorI=",
       "url": "sw-registrator.js"
     },
     {
@@ -789,5 +789,5 @@
       "url": "_content\/Syncfusion.Blazor.TreeGrid\/scripts\/sf-treegrid-2e8b64.min.js"
     }
   ],
-  "version": "gK0F\/Wmr"
+  "version": "hai5Ur+7"
 };
