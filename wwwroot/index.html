@@ -23,7 +23,15 @@
         <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span>
         <label><strong style="background-color:green; color: whitesmoke; padding: 4px;">Update!</strong> a new version is available - clisk to update</label>
     </div>-->
-    <div id="app" style="height: 100%; width: 100%;">Loading...</div>
+    <div id="app" style="height: 100%; width: 100%;">
+        <div style="position: absolute; top:30vh; width:100%; text-align: center">
+            <h1>Planner to Gantt</h1>
+            <div style="display:flex; gap:10px; justify-content:center; align-items: center">
+                <div class="spinner-border" role="status"></div>
+                The application is loading...
+            </div>
+        </div>
+    </div>
 
     <div id="blazor-error-ui">
         An unhandled error has occurred.
