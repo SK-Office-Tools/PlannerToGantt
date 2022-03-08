@@ -30,9 +30,11 @@
     <None Remove="CsvHelper.Excel.Core" />
     <None Remove="Data\" />
     <None Remove="Blazored.LocalStorage" />
+    <None Remove="Services\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Sample\" />
     <Folder Include="Data\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 </Project>

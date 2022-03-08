@@ -7,9 +7,12 @@
 @using System.Linq;
 @using CsvHelper.Excel;
 @using PlannerToGantt.Data;
-@using Syncfusion.Blazor.Gantt
+@using PlannerToGantt.Services;
+@using Syncfusion.Blazor.Gantt;
+@using Syncfusion.Blazor.Spinner;
 
 @inject IJSRuntime JSRuntime
+@inject IAppStorageService AppStorageService 
 
 @implements IAsyncDisposable
 
@@ -23,6 +26,11 @@
         <InputFile OnChange="@OnChange" accept=".xlsx, xls" />
     </div>
 </div>
+
+@if (_isLoading)
+{
+    <SfSpinner Size="60" Label="@SpinnerText" Type="SpinnerType.Bootstrap5" Visible="true"></SfSpinner>
+}
 
 @if (_tasks != null)
 {
@@ -70,9 +78,21 @@
     IJSObjectReference _dropZoneInstance;
 
     List<TaskData> _tasks = null;
+    private bool _isLoading = false;
+    private string SpinnerText = "";
     private DateTime ProjectStart = DateTime.Today.AddMonths(-1);
     private DateTime ProjectEnd = DateTime.Today.AddMonths(3);
     private List<ResourceAllocateData> ResourceCollection { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _tasks = (List<TaskData>)await AppStorageService.GetTaskList();
+        if (_tasks != null)
+        {
+            _isLoading = true;
+            await ProcessTasks();
+        }
+    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -100,8 +120,46 @@
     private DateTime? LatestTask => _tasks.Where(x => x.EndDate != null).OrderByDescending(t => t.EndDate).First().EndDate;
     private DateTime? LatestCompletedTask => _tasks.Where(x => x.CompletedDate != null).OrderByDescending(t => t.CompletedDate).First().CompletedDate;
 
+    async Task ProcessTasks()
+    {
+        SpinnerText = "Processing Tasks...";
+        _tasks = _tasks.Where(t => t.BucketName != "TBD" && t.BucketName != "Backlog" && t.Status != "Completed").ToList(); // Remove TBD and Backlog Items
+
+        //var earliestCreated = (EarliestCreatedTask ?? ProjectStart).AddDays(-7);
+        ProjectStart = (EarliestTask ?? ProjectStart).AddDays(-7);
+        ProjectEnd = (LatestTask ?? ProjectEnd).AddMonths(1);
+        //if (earliestCreated < ProjectStart) ProjectStart = earliestCreated;
+        //var altProjectCompleted = LatestCompletedTask;
+
+        var resources = _tasks.Select(t => t.AssignedTo);
+        var tmp = new List<string>();
+        foreach (var res in resources)
+            tmp.AddRange(res.Split(';'));
+        tmp = tmp.Distinct().ToList();
+        int resId = 0;
+        int taskId = 0;
+        ResourceCollection = tmp.Select(res => new ResourceAllocateData { ResourceId = resId++, ResourceName = res }).ToList();
+        foreach (var task in _tasks)
+        {
+            task.TaskId = taskId++;
+            if (task.StartDate == null) task.StartDate = task.CreatedDate;
+            if (task.CompletedDate != null) task.EndDate = task.CompletedDate;
+            if (task.EndDate == null) task.EndDate = task.StartDate;
+            task.Duration = WorkingDaysBetween(task.StartDate.Value, task.EndDate.Value).ToString();    // (task.EndDate - task.StartDate);
+
+            //task.Duration = duration.Value.TotalDays.ToString();
+            task.Resources = task.AssignedTo.Split(";").Select(x => ResourceCollection.First(y => y.ResourceName == x)).ToList();
+        }
+        SpinnerText = "";
+        _isLoading = false;
+
+    }
+
     async Task OnChange(InputFileChangeEventArgs e)
     {
+        _isLoading = true;
+        StateHasChanged();
+
         var importFile = e.File;
 
         await using MemoryStream ms = new();
@@ -121,33 +179,8 @@
             var allTasks = await csvReader.GetRecordsAsync<TaskData>().ToListAsync();
             _tasks = allTasks;
         }
-        _tasks = _tasks.Where(t => t.BucketName != "TBD" && t.BucketName != "Backlog" && t.Status != "Completed").ToList(); // Remove TBD and Backlog Items
-
-        //var earliestCreated = (EarliestCreatedTask ?? ProjectStart).AddDays(-7);
-        ProjectStart = (EarliestTask ?? ProjectStart).AddDays(-7);
-        ProjectEnd = (LatestTask ?? ProjectEnd).AddMonths(1);
-        //if (earliestCreated < ProjectStart) ProjectStart = earliestCreated;
-        //var altProjectCompleted = LatestCompletedTask;
-
-        var resources = _tasks.Select(t => t.AssignedTo);
-        var tmp = new List<string>();
-        foreach (var res in resources)
-            tmp.AddRange(res.Split(';'));
-        tmp = tmp.Distinct().ToList();
-        int resId = 0;
-        int taskId = 0;
-        ResourceCollection = tmp.Select(res => new ResourceAllocateData { ResourceId = resId++, ResourceName = res }).ToList();
-        foreach(var task in _tasks)
-        {
-            task.TaskId = taskId++;
-            if (task.StartDate == null) task.StartDate = task.CreatedDate;
-            if (task.CompletedDate != null) task.EndDate = task.CompletedDate;
-            if (task.EndDate == null) task.EndDate = task.StartDate;
-            task.Duration = WorkingDaysBetween(task.StartDate.Value, task.EndDate.Value).ToString();    // (task.EndDate - task.StartDate);
-
-            //task.Duration = duration.Value.TotalDays.ToString();
-            task.Resources = task.AssignedTo.Split(";").Select(x => ResourceCollection.First(y => y.ResourceName == x)).ToList();
-        }
+        await AppStorageService.SaveTaskList(_tasks);
+        await ProcessTasks();
         StateHasChanged();
     }
 
@@ -164,4 +197,4 @@
             await _module.DisposeAsync();
         }
     }
-}
+    }
