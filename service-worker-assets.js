@@ -85,7 +85,7 @@
       "url": "icon-512.png"
     },
     {
-      "hash": "sha256-320/KgKPhMXOBZxLOovJVpyogzSTj82B/nToIusORj8=",
+      "hash": "sha256-JbqNExD3ItJXq6UVcRJve7923M/qnPmE/S2fgEElF80=",
       "url": "index.html"
     },
     {
@@ -789,5 +789,5 @@
       "url": "_content\/Syncfusion.Blazor.TreeGrid\/scripts\/sf-treegrid-2e8b64.min.js"
     }
   ],
-  "version": "As1lXLpo"
+  "version": "8\/C0mtRf"
 };
