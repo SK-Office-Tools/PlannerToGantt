@@ -155,30 +155,65 @@
 
     }
 
+    async Task<List<TaskData>> ReadFromExcel(MemoryStream ms, bool forceUK = false)
+    {
+        var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+        {
+            HasHeaderRecord = true
+        };
+
+        try
+        {
+            using var parser = new ExcelParser(ms, "Tasks", config);
+            using (var csvReader = new CsvReader(parser))
+            {
+                if (forceUK)
+                    csvReader.Context.RegisterClassMap<PlannerDataMapUK>();
+                else
+                    csvReader.Context.RegisterClassMap<PlannerDataMap>();
+
+                await csvReader.ReadAsync();
+                csvReader.ReadHeader();
+                return await csvReader.GetRecordsAsync<TaskData>().ToListAsync();
+            }
+        }
+        catch (Exception ex){
+            return null;
+        }
+    }
+
     async Task OnChange(InputFileChangeEventArgs e)
     {
         _isLoading = true;
         StateHasChanged();
 
         var importFile = e.File;
-
         await using MemoryStream ms = new();
         await importFile.OpenReadStream().CopyToAsync(ms);
 
-        var config = new CsvConfiguration(CultureInfo.InvariantCulture)
-        {
-            HasHeaderRecord = true
-        };
+        using StreamReader sr = new(ms);
 
-        using var parser = new ExcelParser(ms, "Tasks", config);
+        var content = await sr.ReadToEndAsync();
+        _tasks = await ReadFromExcel(ms);
+        if (_tasks == null)
+        {
+            //var msUK = new MemoryStream(content.ToCharArray());
+            //await importFile.OpenReadStream().CopyToAsync(ms);
+            //ms.Seek(0, SeekOrigin.Begin);
+            var msUK = new MemoryStream();
+            using StreamWriter sw = new(msUK);
+            await sw.WriteAsync(content);
+            _tasks = await ReadFromExcel(msUK, true);
+        }
+        @*using var parser = new ExcelParser(ms, "Tasks", config);
         using (var csvReader = new CsvReader(parser))
         {
-            csvReader.Context.RegisterClassMap<PlannerDataMap>();
+            csvReader.Context.RegisterClassMap<PlannerDataMap>("dd/MM/yyyy");
             await csvReader.ReadAsync();
             csvReader.ReadHeader();
             var allTasks = await csvReader.GetRecordsAsync<TaskData>().ToListAsync();
             _tasks = allTasks;
-        }
+        }*@
         await AppStorageService.SaveTaskList(_tasks);
         await ProcessTasks();
         StateHasChanged();
