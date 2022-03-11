@@ -133,7 +133,7 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-2a\/5NIgqFihmvlWL0S2hxsu5CehszWoaGuHi1fOp5SU=",
+      "hash": "sha256-RDQsYQUhGuD67kzGXCR3GGgDemWoSzG7B0f6\/7kfgDI=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -233,7 +233,7 @@
       "url": "_framework\/netstandard.dll"
     },
     {
-      "hash": "sha256-MDx1UzOnDbFD8AxrZqt2bjWmJkFYP1yPZ0OaFtZcOCk=",
+      "hash": "sha256-YsueZ97sNHSjtJTR\/wul\/diIlmxi+7v6f2U8muVbuls=",
       "url": "_framework\/PlannerToGantt.dll"
     },
     {
@@ -425,7 +425,7 @@
       "url": "_framework\/System.ObjectModel.dll"
     },
     {
-      "hash": "sha256-AneR9Xq1jOT5AFWRR2Xhli\/TFigfOlR7F9ImYkCahRw=",
+      "hash": "sha256-GUjaMR\/CXDrhcnZQYF8i7OB\/9GTQHhy+FXCEgSt9T3U=",
       "url": "_framework\/System.Private.CoreLib.dll"
     },
     {
@@ -465,7 +465,7 @@
       "url": "_framework\/System.Runtime.CompilerServices.Unsafe.dll"
     },
     {
-      "hash": "sha256-RMQnPArVz\/Lsq3UFNVNOrs1n9m+dubpmG1cROpVueJs=",
+      "hash": "sha256-aRl9IkatPitV8QtYFuskGFKgylRAcfN0GI4UZUjdJgE=",
       "url": "_framework\/System.Runtime.dll"
     },
     {
@@ -789,5 +789,5 @@
       "url": "_content\/Syncfusion.Blazor.TreeGrid\/scripts\/sf-treegrid-2e8b64.min.js"
     }
   ],
-  "version": "fN8zLi5R"
+  "version": "4jLLG+zS"
 };
