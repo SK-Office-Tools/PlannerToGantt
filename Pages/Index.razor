@@ -155,8 +155,11 @@
 
     }
 
-    async Task<List<TaskData>> ReadFromExcel(MemoryStream ms, bool forceUK = false)
+    async Task<List<TaskData>> ReadFromExcel(IBrowserFile importFile, bool forceUK = false)
     {
+        await using MemoryStream ms = new();
+        await importFile.OpenReadStream().CopyToAsync(ms);
+
         var config = new CsvConfiguration(CultureInfo.InvariantCulture)
         {
             HasHeaderRecord = true
@@ -188,34 +191,21 @@
         StateHasChanged();
 
         var importFile = e.File;
-        await using MemoryStream ms = new();
-        await importFile.OpenReadStream().CopyToAsync(ms);
-
-        using StreamReader sr = new(ms);
-
-        var content = await sr.ReadToEndAsync();
-        _tasks = await ReadFromExcel(ms, true);
+        _tasks = await ReadFromExcel(importFile);
         if (_tasks == null)
         {
-            //var msUK = new MemoryStream(content.ToCharArray());
-            //await importFile.OpenReadStream().CopyToAsync(ms);
-            //ms.Seek(0, SeekOrigin.Begin);
-            var msUK = new MemoryStream();
-            using StreamWriter sw = new(msUK);
-            await sw.WriteAsync(content);
-            _tasks = await ReadFromExcel(msUK, true);
+            _tasks = await ReadFromExcel(importFile, true);
         }
-        @*using var parser = new ExcelParser(ms, "Tasks", config);
-        using (var csvReader = new CsvReader(parser))
+        if (_tasks == null)
         {
-            csvReader.Context.RegisterClassMap<PlannerDataMap>("dd/MM/yyyy");
-            await csvReader.ReadAsync();
-            csvReader.ReadHeader();
-            var allTasks = await csvReader.GetRecordsAsync<TaskData>().ToListAsync();
-            _tasks = allTasks;
-        }*@
-        await AppStorageService.SaveTaskList(_tasks);
-        await ProcessTasks();
+            //  Output a message
+            Console.WriteLine("NULL task list");
+        }
+        else
+        {
+            await AppStorageService.SaveTaskList(_tasks);
+            await ProcessTasks();
+        }
         StateHasChanged();
     }
 
@@ -232,4 +222,4 @@
             await _module.DisposeAsync();
         }
     }
-    }
+}
