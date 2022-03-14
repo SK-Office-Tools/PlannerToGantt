@@ -194,7 +194,7 @@
         using StreamReader sr = new(ms);
 
         var content = await sr.ReadToEndAsync();
-        _tasks = await ReadFromExcel(ms);
+        _tasks = await ReadFromExcel(ms, true);
         if (_tasks == null)
         {
             //var msUK = new MemoryStream(content.ToCharArray());
