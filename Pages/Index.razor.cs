@@ -1,28 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components;
-using System.Net.Http;
-using System.Net.Http.Json;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.Web.Virtualization;
-using Microsoft.AspNetCore.Components.WebAssembly.Http;
-using Microsoft.JSInterop;
-using PlannerToGantt;
-using PlannerToGantt.Shared;
-using Syncfusion.Blazor;
-using System.IO;
 using CsvHelper;
 using CsvHelper.Configuration;
-using System.Globalization;
-using System.Linq;
 using CsvHelper.Excel;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.JSInterop;
 using PlannerToGantt.Data;
-using PlannerToGantt.Services;
-using Syncfusion.Blazor.Gantt;
-using Syncfusion.Blazor.Spinner;
+using System.Globalization;
 
 namespace PlannerToGantt.Pages
 {
